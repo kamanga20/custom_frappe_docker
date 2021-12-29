@@ -1,27 +1,27 @@
 version: "3"
 
 services:
-  traefik:
-    image: "traefik:v2.2"
-    command:
-      - "--log.level=DEBUG"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.excelresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.excelresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.excelresolver.acme.email=${LETSENCRYPT_EMAIL}"
-      - "--certificatesresolvers.excelresolver.acme.storage=/letsencrypt/acme.json"
-    labels:
+  #traefik:
+    #image: "traefik:v2.2"
+    #command:
+     # - "--log.level=DEBUG"
+     # - "--providers.docker=true"
+     # - "--providers.docker.exposedbydefault=false"
+     # - "--entrypoints.web.address=:80"
+     # - "--entrypoints.websecure.address=:443"
+     # - "--certificatesresolvers.excelresolver.acme.httpchallenge=true"
+     # - "--certificatesresolvers.excelresolver.acme.httpchallenge.entrypoint=web"
+     # - "--certificatesresolvers.excelresolver.acme.email=${LETSENCRYPT_EMAIL}"
+     # - "--certificatesresolvers.excelresolver.acme.storage=/letsencrypt/acme.json"
+    #labels:
       # enable traefik
-      - "traefik.enable=true"
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - cert-vol:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+     # - "traefik.enable=true"
+   # ports:
+   #   - "80:80"
+   #   - "443:443"
+   # volumes:
+     # - cert-vol:/letsencrypt
+     # - /var/run/docker.sock:/var/run/docker.sock:ro
 
   custom-erpnext-nginx:
     image: custom-erpnext-nginx:${ERPNEXT_VERSION}
@@ -156,3 +156,6 @@ volumes:
   assets-vol:
   sites-vol:
   cert-vol:
+networks:
+  proxy:
+    external: true
